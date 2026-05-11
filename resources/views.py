@@ -1,5 +1,4 @@
 from re import search
-
 from rest_framework import generics, permissions, filters
 from .models import Category, Resources, Tag
 from .serializers import CategorySerializer, ResourcesSerializer, TagSerializer
