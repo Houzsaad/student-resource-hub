@@ -43,6 +43,7 @@ This app solves that.
 - **File Storage** — Local (Render disk / upgradeable to S3)
 
 - **live project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
+
 ## Project Structure
 
 student-resource-hub/
@@ -65,9 +66,7 @@ student-resource-hub/
 | POST | `/api/accounts/token/refresh/` | Refresh access token |
 | GET/PATCH | `/api/accounts/profile/` | View or update your profile |
 
-
-
-
+- **live accounts project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
 
 ### Resources
 | Method | Endpoint | Description |
@@ -78,6 +77,8 @@ student-resource-hub/
 | GET | `/api/resources/resources/<id>/download/` | Download a resource |
 | GET/POST | `/api/resources/tags/` | List or create tags |
 | GET | `/api/resources/search/?search=<query>` | Search resources |
+
+- **live  resources project url** -- https://student-resource-hub-qx57..onrender.com/api/resources/resources/pk/download/
 
 ### Interactions
 | Method | Endpoint | Description |
