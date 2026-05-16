@@ -42,6 +42,7 @@ This app solves that.
 - **Deployment** — Render
 - **File Storage** — Local (Render disk / upgradeable to S3)
 
+- **live project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
 ## Project Structure
 
 student-resource-hub/
@@ -63,6 +64,10 @@ student-resource-hub/
 | POST | `/api/accounts/login/` | Login and get JWT tokens |
 | POST | `/api/accounts/token/refresh/` | Refresh access token |
 | GET/PATCH | `/api/accounts/profile/` | View or update your profile |
+
+
+
+
 
 ### Resources
 | Method | Endpoint | Description |
