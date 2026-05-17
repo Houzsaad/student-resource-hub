@@ -66,6 +66,9 @@ student-resource-hub/
 | POST | `/api/accounts/token/refresh/` | Refresh access token |
 | GET/PATCH | `/api/accounts/profile/` | View or update your profile |
 
+## Register Page
+![Register](WhatsApp Image 2026-05-16 at 14.31.09.jpeg)
+
 - **live accounts project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
 
 ### Resources
