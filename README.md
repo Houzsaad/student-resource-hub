@@ -47,10 +47,10 @@ This app solves that.
 ## Project Structure
 
 student-resource-hub/
-├── core/               # Project settings and root URLs
-├── accounts/           # Custom user model, auth endpoints
-├── resources/          # Categories, resources, tags, search
-├── interactions/       # Ratings, comments, notifications
+├── core/            
+├── accounts/        
+├── resources/          
+├── interactions/       
 ├── manage.py
 ├── requirements.txt
 ├── build.sh
@@ -97,7 +97,6 @@ cd student-resource-hub
 # Create and activate virtual environment
 python -m venv venv
 venv\Scripts\activate  # Windows
-source venv/bin/activate  # Mac/Linux
 
 # Install dependencies
 pip install -r requirements.txt
@@ -128,5 +127,5 @@ python manage.py runserver
 ## Author
 
 **Huzaifa** — Self-taught backend developer  
-GitHub: [Houzsaad](https://github.com/Houzsaad)  
-Fiverr: [fiverr.com/s/Q78QpXP](https://fiverr.com/s/Q78QpXP)
+**GitHub**: [Houzsaad](https://github.com/Houzsaad)  
+**Fiverr**: [fiverr.com/s/Q78QpXP](https://fiverr.com/s/Q78QpXP)
