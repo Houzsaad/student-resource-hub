@@ -67,7 +67,9 @@ student-resource-hub/
 | GET/PATCH | `/api/accounts/profile/` | View or update your profile |
 
 ## Register Page
-![Register](WhatsApp Image 2026-05-16 at 14.31.09.jpeg)
+<p align="center">
+    <img src="WhatsApp Image 2026-05-16 at 14.31.09.jpeg" width='300"/>
+</p>
 
 - **live accounts project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
 
