@@ -71,6 +71,9 @@ student-resource-hub/
 
 - **live accounts project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
 
+- ## Logged_in Page
+- ![image src](https://github.com/Houzsaad/student-resource-hub/blob/8f4751067c621ceed871b321768433e1032256ee/WhatsApp%20Image%202026-05-16%20at%2014.31.09%20(2).jpeg)
+
 ### Resources
 | Method | Endpoint | Description |
 |---|---|---|
