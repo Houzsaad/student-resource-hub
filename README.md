@@ -67,12 +67,16 @@ student-resource-hub/
 | GET/PATCH | `/api/accounts/profile/` | View or update your profile |
 
 ## Register Page
-![image alt](https://github.com/Houzsaad/student-resource-hub/blob/1a8fc6f9a1183a8c8015397bc94706158ea03740/WhatsApp%20Image%202026-05-16%20at%2014.31.09.jpeg)
+<p align="center">
+    <img src="https://github.com/Houzsaad/student-resource-hub/blob/1a8fc6f9a1183a8c8015397bc94706158ea03740/WhatsApp%20Image%202026-05-16%20at%2014.31.09.jpeg" width="250"/>
+</p>
 
 - **live accounts project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
 
 - ## Logged_in Page
-- ![image src](https://github.com/Houzsaad/student-resource-hub/blob/8f4751067c621ceed871b321768433e1032256ee/WhatsApp%20Image%202026-05-16%20at%2014.31.09%20(2).jpeg)
+<p align="center">
+    <img src="https://github.com/Houzsaad/student-resource-hub/blob/8f4751067c621ceed871b321768433e1032256ee/WhatsApp%20Image%202026-05-16%20at%2014.31.09%20(2).jpeg" width="250"/>
+</p>
 
 ### Resources
 | Method | Endpoint | Description |
