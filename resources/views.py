@@ -13,12 +13,12 @@ from rest_framework import permissions
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
 class ResourcesListCreateView(generics.ListCreateAPIView):
     queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def perfom_creation(self, serializer):
         serializer.save(uploaded_by=self.request.user)
@@ -26,16 +26,16 @@ class ResourcesListCreateView(generics.ListCreateAPIView):
 class ResourcesDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
 class TagListCreateView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
 class ResouceSearchView(generics.ListAPIView):
     serializer_class = ResourcesSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
     filter_backends = [filters.SearchFilter]
     search_field = ['title', 'description', 'tas__name', 'category__name']
 
@@ -44,7 +44,7 @@ class ResouceSearchView(generics.ListAPIView):
     
 
 class ResourceDownloadView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def get(self, request, pk):
         try:
