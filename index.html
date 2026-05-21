@@ -15,9 +15,33 @@
     </div>
 
     <script>
-        const API_URL ="https://student-resource-hub-qx57..onrender.com/api/resources/resources/";
+        const API_URL = 'https://student-resource-hub-qx57.onrender.com/api/accounts/register/';
 
         const loadResources = async () => {
+            try {
+                const response = await fetch(API_URL)
+                if (!response.ok) {
+                    throw new Error ('HTTP error: ${response.status}');    
+                }
+
+                const data = await response.json();
+                console.log(data);
+                
+                const list = document.getElementById("resource-list");
+                const status = document.getElementById("status");
+
+                status.textContent = '${data.results.length} resources loaded.';
+
+                data.results.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = item.title;
+                    list.appendChild(li);
+                });
+
+            } catch (error) {
+                document.getElementById("status").textContent = "failed to loaded: " + error.message;
+            }
+
             // let's dive in here...
         };
         loadResources();
