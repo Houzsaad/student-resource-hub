@@ -44,11 +44,11 @@ INSTALLED_APPS = [
     'accounts',
     'resources',
     'interactions',
-    'corsheaders,'
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware,'
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
