@@ -11,17 +11,17 @@
 
     <div id="app">
         <p id="status">Loading resources...</p>
-        <ul id="resource-ist"></ul>
+        <ul id="resource-list"></ul>
     </div>
 
     <script>
-        const API_URL = 'https://student-resource-hub-qx57.onrender.com/api/resources/resources/';
+        const API_URL = "http://127.0.0.1:8000/api/resources/resources/";
 
         const loadResources = async () => {
             try {
                 const response = await fetch(API_URL)
                 if (!response.ok) {
-                    throw new Error ('HTTP error: ${response.status}');    
+                    throw new Error (`HTTP error: ${response.status}`);  
                 }
 
                 const data = await response.json();
@@ -30,9 +30,9 @@
                 const list = document.getElementById("resource-list");
                 const status = document.getElementById("status");
 
-                status.textContent = '${data.results.length} resources loaded.';
+                status.textContent = `${data.length} resources loaded.`;
 
-                data.results.forEach(item => {
+                data.forEach(item => {
                     const li = document.createElement("li");
                     li.textContent = item.title;
                     list.appendChild(li);
