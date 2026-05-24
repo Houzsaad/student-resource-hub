@@ -1,50 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="viewport" content="width=device-width", inital-scale="0.1">
-    <title>Student Resoures Hub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resources Hub</title>
 </head>
-
 <body>
 
     <h1>Student Resources Hub</h1>
 
-    <div id="app">
-        <p id="status">Loading resources...</p>
-        <ul id="resource-list"></ul>
+    <input type="text" id="search" placeholder="Search resources...">
+
+    <div id="filters">
+        <button onclick="filterBy('all')">All</button>
     </div>
+
+    <p id="status">Loading resources...</p>
+    <ul id="resource-list"></ul>
 
     <script>
         const API_URL = "http://127.0.0.1:8000/api/resources/resources/";
+        let allResources = [];
+
+        const renderList = (resources) => {
+            const list = document.getElementById("resource-list");
+            list.innerHTML = "";
+            resources.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = item.title;
+                list.appendChild(li);
+            });
+        };
+
+        const filterBy = (category) => {
+            if (category === 'all') {
+                renderList(allResources);
+            } else {
+                const filtered = allResources.filter(item => item.category === category);
+                renderList(filtered);
+            }
+        };
+
+        const loadCategories = async () => {
+            const res = await fetch("http://127.0.0.1:8000/api/resources/categories/");
+            const categories = await res.json();
+            const filters = document.getElementById("filters");
+            categories.forEach(cat => {
+                const btn = document.createElement("button");
+                btn.textContent = cat.name;
+                btn.onclick = () => filterBy(cat.id);
+                filters.appendChild(btn);
+            });
+        };
 
         const loadResources = async () => {
             try {
-                const response = await fetch(API_URL)
-                if (!response.ok) {
-                    throw new Error (`HTTP error: ${response.status}`);  
-                }
-
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
                 const data = await response.json();
-                console.log(data);
-                
-                const list = document.getElementById("resource-list");
-                const status = document.getElementById("status");
-
-                status.textContent = `${data.length} resources loaded.`;
-
-                data.forEach(item => {
-                    const li = document.createElement("li");
-                    li.textContent = item.title;
-                    list.appendChild(li);
-                });
-
+                allResources = data;
+                document.getElementById("status").textContent = `${data.length} resources loaded.`;
+                renderList(allResources);
             } catch (error) {
-                document.getElementById("status").textContent = "failed to loaded: " + error.message;
+                document.getElementById("status").textContent = "Failed: " + error.message;
             }
-
-            // let's dive in here...
         };
+
+        // Search
+        const searchInput = document.querySelector("#search");
+        searchInput.addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = allResources.filter(item =>
+                item.title.toLowerCase().includes(searchTerm)
+            );
+            renderList(filtered);
+        });
+
         loadResources();
+        loadCategories();
     </script>
 
 </body>
