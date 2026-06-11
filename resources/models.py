@@ -43,7 +43,7 @@ class Resources(models.Model):
     file = models.FileField(upload_to='resources/')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='resources')
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='resources')
-    tags = models.ManyToManyField(Tag, blank=True, related_name='resources') 
+    tags = models.ManyToManyField(Tag, blank=True, related_name='resources')
 
     download_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -9,10 +9,13 @@ class CategorySerializer(serializers.ModelSerializer):
         
         
 class ResourcesSerializer(serializers.ModelSerializer):
+
+    uploaded_by = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Resources
-        fields = ['id', 'title', 'description', 'category', 'file', 'uploaded_by', 'tags', 'created_at']
-        read_only_fields = ['created_at']
+        fields = "__all__"
+        #fields = ['id', 'title', 'description', 'category', 'file', 'uploaded_by', 'tags', 'created_at']
+        #read_only_fields = ['uploaded_by', 'created_at']
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:

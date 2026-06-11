@@ -3,6 +3,7 @@ from rest_framework import generics, permissions, filters
 from .models import Category, Resources, Tag
 from .serializers import CategorySerializer, ResourcesSerializer, TagSerializer
 from .permissions import IsOwnerOrReadOnly
+from rest_framework.decorators import action
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -18,9 +19,8 @@ class CategoryListCreateView(generics.ListCreateAPIView):
 class ResourcesListCreateView(generics.ListCreateAPIView):
     queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
-    permission_classes = []
-
-    def perfom_creation(self, serializer):
+    permission_classes = []   
+    def perform_create(self, serializer):
         serializer.save(uploaded_by=self.request.user)
 
 class ResourcesDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -34,13 +34,14 @@ class TagListCreateView(generics.ListCreateAPIView):
     permission_classes = []
 
 class ResouceSearchView(generics.ListAPIView):
+    queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
     permission_classes = []
     filter_backends = [filters.SearchFilter]
-    search_field = ['title', 'description', 'tas__name', 'category__name']
+    search_fields = ['title', 'description', 'tas__name', 'category__name']
 
-    def get_queryset(self):
-        return Resources.objects.all()
+    # def get_queryset(self):
+    #     return Resources.objects.all()
     
 
 class ResourceDownloadView(APIView):
