@@ -4,15 +4,3 @@ db.sqlite3
 __pycache__
 *.pyc
 media/
-
-src/
-├── components/
-│   ├── Navbar.jsx
-│   ├── ResourceCard.jsx
-│   └── Layout.jsx
-├── pages/
-│   ├── ResourceList.jsx
-│   ├── LoginForm.jsx
-│   ├── RegisterForm.jsx
-│   └── UploadForm.jsx
-└── api.js

@@ -20,6 +20,11 @@ class ResourcesListCreateView(generics.ListCreateAPIView):
     queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
     permission_classes = []   
+
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'description']
+
+
     def perform_create(self, serializer):
         serializer.save(uploaded_by=self.request.user)
 
@@ -37,8 +42,7 @@ class ResouceSearchView(generics.ListAPIView):
     queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
     permission_classes = []
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'description', 'tas__name', 'category__name']
+   
 
     # def get_queryset(self):
     #     return Resources.objects.all()
