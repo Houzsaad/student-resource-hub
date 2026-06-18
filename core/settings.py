@@ -167,3 +167,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DATABASE_URL = config('DATABASE_URL', default=None)
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://student-resource-hub-frontend.vercel.app",
+]

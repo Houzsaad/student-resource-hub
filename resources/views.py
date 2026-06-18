@@ -31,7 +31,7 @@ class ResourcesListCreateView(generics.ListCreateAPIView):
 class ResourcesDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class TagListCreateView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
@@ -41,7 +41,7 @@ class TagListCreateView(generics.ListCreateAPIView):
 class ResouceSearchView(generics.ListAPIView):
     queryset = Resources.objects.all()
     serializer_class = ResourcesSerializer
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
    
 
     # def get_queryset(self):
