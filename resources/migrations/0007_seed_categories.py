@@ -13,7 +13,7 @@ def seed_categories(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('resources', '005_resources_tags'),
+        ('resources', '0005_resources_tags'),
     ]
 
     operations = [
