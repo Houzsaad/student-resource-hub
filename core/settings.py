@@ -45,6 +45,15 @@ INSTALLED_APPS = [
     'resources',
     'interactions',
     'corsheaders',
+
+    'cloudinary',
+    'cloudinary_storage'
+]
+
+CLOUDINARI_STORAGE = [
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'SECRET_KEY': os.environ.get('CLOUDINARY_SECRET_KEY')
 ]
 
 MIDDLEWARE = [
