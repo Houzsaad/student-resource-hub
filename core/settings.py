@@ -10,6 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+
 from pathlib import Path
 from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,11 +55,11 @@ INSTALLED_APPS = [
     'cloudinary_storage'
 ]
 
-CLOUDINARY_STORAGE = [
-    CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    API_KEY = os.environ.get('CLOUDINARY_API_KEY'),
-    SECRET_KEY =  os.environ.get('CLOUDINARY_SECRET_KEY')
-]
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'SECRET_KEY':  os.environ.get('CLOUDINARY_SECRET_KEY'),
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
