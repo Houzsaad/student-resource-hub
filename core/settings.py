@@ -50,10 +50,10 @@ INSTALLED_APPS = [
     'cloudinary_storage'
 ]
 
-CLOUDINARI_STORAGE = [
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'SECRET_KEY': os.environ.get('CLOUDINARY_SECRET_KEY')
+CLOUDINARY_STORAGE = [
+    CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    API_KEY = os.environ.get('CLOUDINARY_API_KEY'),
+    SECRET_KEY =  os.environ.get('CLOUDINARY_SECRET_KEY')
 ]
 
 MIDDLEWARE = [
