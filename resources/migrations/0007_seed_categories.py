@@ -2,7 +2,7 @@
 
 from django.db import migrations
 def seed_categories(apps, schema_editor):
-    Category = apps.get_model('resource', 'Category')
+    Category = apps.get_model('resources', 'Category')
     categories = [
         'Backend', 'Frontend', 'Database',
         'Mathmatics', 'Science', 'General'
