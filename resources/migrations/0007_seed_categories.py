@@ -7,7 +7,7 @@ def seed_categories(apps, schema_editor):
         'Backend', 'Frontend', 'Database',
         'Mathmatics', 'Science', 'General'
     ]
-    for name in range categories:
+    for name in categories:
         Category.objects.get_or_create(name=name)
 
 class Migration(migrations.Migration):
