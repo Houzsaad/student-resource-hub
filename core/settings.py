@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 
-
-
-
 from pathlib import Path
 from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -60,6 +57,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
     'SECRET_KEY':  os.environ.get('CLOUDINARY_SECRET_KEY'),
 }
+DEFAULR_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
