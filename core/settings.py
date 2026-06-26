@@ -172,6 +172,14 @@ CORS_ALLOWED_ORIGINS = [
     "https://student-resource-hub-frontend.vercel.app",
 ]
 
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL')
+    )
+}
+
 
 DATABASES = {
     'default': {
