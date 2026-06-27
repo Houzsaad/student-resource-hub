@@ -61,6 +61,14 @@ CLOUDINARY_STORAGE = {
     'API_SECRET':  os.environ.get('CLOUDINARY_SECRET_KEY')
 }
 
+import logging
+logger = logging(__name__)
+
+logger.warning(f"Cloudinary Name Is: {os.environ.get('CLOUDINARY_CLOUD_NAME')}")
+logger.warning(f"Cloudinary_Api_Key is: {os.environ.get('API_KEY')}")
+logger.warning(f"Cloudinary_Secret_Key is: {os.environ.get('API_SECRET')}")
+logger.warning(f"Default_File Storage :{DEFAULT_FILE_STORAGE}")
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
