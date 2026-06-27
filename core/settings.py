@@ -62,7 +62,7 @@ CLOUDINARY_STORAGE = {
 }
 
 import logging
-logger = logging(__name__)
+logger = logging.getLogger(__name__)
 
 logger.warning(f"Cloudinary Name Is: {os.environ.get('CLOUDINARY_CLOUD_NAME')}")
 logger.warning(f"Cloudinary_Api_Key is: {os.environ.get('API_KEY')}")
