@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
 
     'rest_framework',
@@ -52,15 +53,16 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'cloudinary',
-    'cloudinary_storage'
 ]
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'SECRET_KEY':  os.environ.get('CLOUDINARY_SECRET_KEY'),
+    'SECRET_KEY':  os.environ.get('CLOUDINARY_SECRET_KEY')
 }
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
