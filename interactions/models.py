@@ -26,7 +26,7 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.user} on {self.resource}'
     
-class  Notification(models.Model):
+class Notification(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification')
     message = models.CharField(max_length=200)
     is_read = models.BooleanField(default=False)

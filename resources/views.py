@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework import permissions
 
 
+import requests
+from django.http import HttpResponse
 
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
@@ -44,26 +46,32 @@ class ResouceSearchView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
    
 
-    # def get_queryset(self):
-    #     return Resources.objects.all()
-    
-
 class ResourceDownloadView(APIView):
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, pk):
         try:
             resource = Resources.objects.get(pk=pk)
         except Resources.DoesNotExist:
-            return Response({'error': 'Resource not found!'}, status=404)
-        
+            return Response({'error': 'Resource not found'}, status=404)
+
+        # Increment counter
         resource.download_count += 1
         resource.save()
 
-        return Response({
-            'title': resource.title,
-            'file_url': request.build_absolute_uri(resource.file.url),
-            'download_count': resource.download_count
-        })
+        # Fetch file from Cloudinary
+        file_url = resource.file.url
+        if file_url.startswith('/'):
+            # If the file URL is already a full URL, use it directly
+            file_url = request.build_absolute_uri(file_url)
+    
+        response = requests.get(file_url)
 
-# Create your views here.
+        # Serve with download headers
+        filename = resource.file.name.split("/")[-1]
+        http_response = HttpResponse(
+            response.content,
+            content_type=response.headers.get('content-type', 'application/octet-stream')
+        )
+        http_response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        return http_response
