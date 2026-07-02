@@ -13,11 +13,13 @@ class RatingSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField()
+    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ['id', 'resource', 'user', 'body', 'parent', 'replies', 'created_at']
-        read_only_fields = ['created_at']
+        fields = '__all__'
+        # fields = ['id', 'resource', 'user', 'body', 'parent', 'replies', 'created_at']
+        # read_only_fields = ['created_at']
 
     def get_replies(self, obj):
         if obj.replies.exists():

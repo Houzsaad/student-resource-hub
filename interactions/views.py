@@ -18,7 +18,7 @@ class CommentListView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Comment.objects.filter(parent=None)
 
-    def perfom_create(self, serializer):
+    def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 class NotificationListView(generics.ListAPIView):
