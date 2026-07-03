@@ -47,7 +47,14 @@ class ResouceSearchView(generics.ListAPIView):
    
 
 class ResourceDownloadView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    
+    # def get_permissions(self):
+    #     if self.action in ['list', 'retrive', 'download']:
+    #         return [AllowAny()]
+    #     else:
+    #         return [IsAuthenticated]
 
     def get(self, request, pk):
         try:

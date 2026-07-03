@@ -3,17 +3,25 @@ from rest_framework import generics, permissions
 from .models import Rating, Comment, Notification
 from .serializers import RatingSerializer, CommentSerializer, NotificationSerializer
 
+
 class RatingCreateView(generics.CreateAPIView):
     serializer_class = RatingSerializer 
     permission_classes = [permissions.IsAuthenticated]
     
-    def perfom_create(self, serializer):
+    def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 class CommentListView(generics.ListCreateAPIView):
     # queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+    # def get_permissions(self):
+    #     if self.action in ['list', 'retrive']:
+    #         return [AllowAny()]
+    #     else:
+    #         return [IsAuthenticated]
 
     def get_queryset(self):
         return Comment.objects.filter(parent=None)
