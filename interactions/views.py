@@ -3,6 +3,7 @@ from rest_framework import generics, permissions
 from .models import Rating, Comment, Notification
 from .serializers import RatingSerializer, CommentSerializer, NotificationSerializer
 
+from django_filters.rest_framework import DjangoFilterBackend
 
 class RatingCreateView(generics.CreateAPIView):
     serializer_class = RatingSerializer 
@@ -12,8 +13,10 @@ class RatingCreateView(generics.CreateAPIView):
         serializer.save(user=self.request.user)
 
 class CommentListView(generics.ListCreateAPIView):
-    # queryset = Comment.objects.all()
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['resource']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 

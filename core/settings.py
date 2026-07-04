@@ -51,7 +51,15 @@ INSTALLED_APPS = [
     'resources',
     'interactions',
     'corsheaders',
+
+    'django_filters',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
+}
 
 if os.environ.get('USE_CLOUDINARY') == 'True':
     STORAGES = {
