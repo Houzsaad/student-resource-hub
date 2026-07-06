@@ -88,7 +88,7 @@ student-resource-hub/
 | GET/POST | `/api/resources/tags/` | List or create tags |
 | GET | `/api/resources/search/?search=<query>` | Search resources |
 
-- **live  resources project url** -- https://student-resource-hub-qx57..onrender.com/api/resources/resources/pk/download/
+- **live  resources project url** -- https://student-resource-hub-qx57.onrender.com/api/resources/resources/pk/download/
 
 ### Interactions
 | Method | Endpoint | Description |
