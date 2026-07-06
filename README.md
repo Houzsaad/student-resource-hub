@@ -47,13 +47,14 @@ This app solves that.
 ## Project Structure
 
 student-resource-hub/
+
 ├── core/            
 ├── accounts/        
 ├── resources/          
 ├── interactions/       
-├── manage.py
-├── requirements.txt
-├── build.sh
+├── manage.py/
+├── requirements.txt/
+├── build.sh/
 └── Procfile
 
 ## API Endpoints
