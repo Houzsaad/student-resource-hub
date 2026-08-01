@@ -40,7 +40,9 @@ class Resources(models.Model):
 
     title = models.CharField(max_length=75)
     description = models.TextField(max_length=250)
-    file = models.FileField(upload_to='resources/')
+    file = models.FileField(upload_to='resources/', null=True, blank=True)
+    link = models.URLField(null=True, blank=True)
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='resources')
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='resources')
     tags = models.ManyToManyField(Tag, blank=True, related_name='resources')
