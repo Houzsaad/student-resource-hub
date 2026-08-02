@@ -25,6 +25,7 @@ class Resources(models.Model):
         PDF = 'pdf', 'PDF'
         VIDEO = 'video', 'Video'
         LINK = 'link', 'Link'
+        IMAGE = 'image', 'Image'
 
     resource_type = models.CharField(
         max_length=10,
