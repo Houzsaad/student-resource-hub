@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
+
 User = get_user_model()
 
 class Category(models.Model):
@@ -41,7 +44,13 @@ class Resources(models.Model):
 
     title = models.CharField(max_length=75)
     description = models.TextField(max_length=250)
-    file = models.FileField(upload_to='resources/', null=True, blank=True)
+
+    file = models.FileField(
+        upload_to='resources/',
+        storage=RawMediaCloudinaryStorage(),
+        null=True,
+        blank=True)
+    
     link = models.URLField(null=True, blank=True)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='resources')
