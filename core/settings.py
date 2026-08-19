@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'django_filters',
+
+    'academics'
 ]
 
 REST_FRAMEWORK = {
