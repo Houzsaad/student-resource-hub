@@ -5,9 +5,9 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Rating(models.Model):
-    resource = models.ForeignKey(Resources, on_delete=models.CASCADE, related_name='resource')
+    resource = models.ForeignKey(Resources, on_delete=models.CASCADE, related_name='ratings')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ratings')
-    score = models.PositiveIntegerField()
+    score = models.PositiveSmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:

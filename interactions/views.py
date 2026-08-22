@@ -20,13 +20,6 @@ class CommentListView(generics.ListCreateAPIView):
     filterset_fields = ['resource']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
-    # def get_permissions(self):
-    #     if self.action in ['list', 'retrive']:
-    #         return [AllowAny()]
-    #     else:
-    #         return [IsAuthenticated]
-
     def get_queryset(self):
         return Comment.objects.filter(parent=None)
 

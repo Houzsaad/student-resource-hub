@@ -1,12 +1,35 @@
 from rest_framework import serializers
 from .models import Rating, Comment, Notification
 
-class RatingSerializer(serializers.ModelSerializer):
+# class RatingSerializer(serializers.ModelSerializer):
     
+#     class Meta:
+#         model = Rating
+#         fields = ['id', 'resource', 'user', 'score', 'created_at']
+#         read_only_fields = ['user', 'created_at']        
+
+class RatingSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Rating
-        fields = ['id', 'resource', 'score', 'created_at']
-        read_onLy_fields = ['created_at']         
+        fields = ['id', 'resource', 'user', 'score', 'created_at']
+        read_only_fields = ['user', 'created_at']
+
+    def validate_resource(self, value):
+        request = self.context.get('request')
+
+        if request and request.user.is_authenticated:
+            already_rated = Rating.objects.filter(
+                resource=value,
+                user=request.user
+            ).exists()
+
+            if already_rated:
+                raise serializers.ValidationError(
+                    "You have already rated this resource."
+                )
+
+        return value
 
 class CommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField()
