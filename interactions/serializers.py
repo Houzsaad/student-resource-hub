@@ -7,8 +7,26 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = ['id', 'resource', 'user', 'score', 'created_at']
         #fields = ['__all__']
-        read_onLy_fields = ['user', 'created_at']
+        read_only_fields = ['user', 'created_at']
 
+    
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
+
+    def validate_resource(self, value):
+        request = self.context.get('request')
+
+        if request and request.user.is_authenticated:
+            already_rated = Rating.objects.filter(
+                resource=value,
+                user=request.user
+            ).exists()
+
+            if already_rated:
+                raise serializers.ValidationError(
+                    "You've already rated this resource."
+                )
+        return value
             
 
 class CommentSerializer(serializers.ModelSerializer):

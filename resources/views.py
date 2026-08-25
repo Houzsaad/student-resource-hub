@@ -46,7 +46,20 @@ class CanApproveResource(permissions.BasePermission):
         return (
             request.user.is_authenticated
             and request.user.has_perm("resources.can_approve_resource")
+
         )
+    
+
+class ResourceApprovalPermissionView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        return Response({
+            "can_approve_resource": request.user.has_perm(
+                "resources.can_approve_resource"
+            )
+        })
+
     
 class PendingResourceSubmissionListView(generics.ListAPIView):
     serializer_class = ResourceSubmissionSerializer
@@ -97,6 +110,35 @@ class ApproveResourceSubmissionView(generics.UpdateAPIView):
             "message": "Resource approved successfully.",
             "resource_id": resource.id,
             "submission_id": submission.id,
+        })
+
+class RejectResourceSubmissionView(APIView):
+    permission_classes = [CanApproveResource]
+
+    def post(self, request, pk):
+        try:
+            submission = ResourceSubmission.objects.get(pk=pk)
+        except ResourceSubmission.DoesNotExist:
+            return Response(
+                {"error": "Submission not found"},
+                status=404
+            )
+
+        if submission.status != ResourceSubmission.Status.PENDING:
+            return Response(
+                {"error": "This submission has already been processed."},
+                status=400
+            )
+
+        submission.status = ResourceSubmission.Status.REJECTED
+        submission.approved_by = request.user
+        submission.approved_at = timezone.now()
+        submission.save()
+
+        return Response({
+            "message": "Resource submission rejected successfully.",
+            "submission_id": submission.id,
+            "status": submission.status,
         })
 
         
