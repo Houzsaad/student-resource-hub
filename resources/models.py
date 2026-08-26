@@ -60,7 +60,72 @@ class Resources(models.Model):
     download_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        permissions = [("can_approve_resource", "Can approve resource")]
+
     def __str__(self):
     	return self.title
 
+
+
+class ResourceSubmission(models.Model):
+
+    class Status(models.TextChoices):
+        PENDING = "pending", "Pending"
+        APPROVED = "approved", "Approved"
+        REJECTED = "rejected", "Rejected"
+
+    resource_type = models.CharField(
+        max_length=10,
+        choices=Resources.ResourceType.choices,
+        default=Resources.ResourceType.PDF
+    )
+
+    title = models.CharField(max_length=75)
+    description = models.TextField(max_length=250)
+
+    file = models.FileField(
+        upload_to="resources/",
+        storage=RawMediaCloudinaryStorage(),
+        null=True,
+        blank=True
+    )
+
+    link = models.URLField(null=True, blank=True)
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="submissions"
+    )
+
+    submitted_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="resource_submissions"
+    )
+
+    status = models.CharField(
+        max_length=10,
+        choices=Status.choices,
+        default=Status.PENDING
+    )
+
+    approved_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="approved_resource_submissions"
+    )
+
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    approved_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return f"{self.title} ({self.status})"
 # Create your models here.
