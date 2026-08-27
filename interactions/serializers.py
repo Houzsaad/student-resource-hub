@@ -14,10 +14,18 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = ['id', 'resource', 'user', 'score', 'created_at']
 
+
         read_only_fields = ['user', 'created_at']
 
         #fields = ['__all__']
         read_only_fields = ['user', 'created_at']
+
+        #fields = ['__all__']
+        read_only_fields = ['user', 'created_at']
+
+    
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
 
 
     def validate_resource(self, value):
@@ -32,11 +40,6 @@ class RatingSerializer(serializers.ModelSerializer):
             if already_rated:
                 raise serializers.ValidationError ("You have already rated this resource.")
         return value
-
-        #             "You've already rated this resource."
-        #         )
-        # return value
-            
 
 class CommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField()
