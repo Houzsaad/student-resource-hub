@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CategoryListCreateView, RejectResourceSubmissionView, ResourceApprovalPermissionView, ResourcesDetailView, ResourcesListCreateView, TagListCreateView, ResourceSearchView, ResourceDownloadView, ResourceSubmissionListCreateView, PendingResourceSubmissionListView, ApproveResourceSubmissionView
+from .views import CategoryListCreateView, RejectResourceSubmissionView, ResourceApprovalPermissionView, ResourcesDetailView, ResourcesListCreateView, TagListCreateView, ResourceSearchView, ResourceDownloadView, ResourceSubmissionListCreateView, PendingResourceSubmissionListView, ApproveResourceSubmissionView, MyResourcesView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -16,4 +16,6 @@ urlpatterns = [
     path('submissions/<int:pk>/approve/', ApproveResourceSubmissionView.as_view(), name="approve-resource-submission"),
     path('submissions/<int:pk>/reject/', RejectResourceSubmissionView.as_view(), name='reject-resource-submission'),
     path('approval-permission/', ResourceApprovalPermissionView.as_view(), name='resource-approval-permission'),
+
+    path('resources/my-resources/', MyResourcesView.as_view(),name='my-resources'),
 ]

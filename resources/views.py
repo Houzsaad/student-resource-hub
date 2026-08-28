@@ -32,6 +32,16 @@ class ResourcesListCreateView(generics.ListCreateAPIView):
         serializer.save(uploaded_by=self.request.user)
 
 
+class MyResourcesView(generics.ListAPIView):
+    serializer_class = ResourcesSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Resources.objects.filter(
+            uploaded_by=self.request.user
+        ).order_by("-created_at")
+
+
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
