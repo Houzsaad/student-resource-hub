@@ -7,7 +7,6 @@ from cloudinary_storage.storage import RawMediaCloudinaryStorage
 User = get_user_model()
 
 class Category(models.Model):
-
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
         
@@ -26,7 +25,6 @@ class Resources(models.Model):
 
     class ResourceType(models.TextChoices):
         PDF = 'pdf', 'PDF'
-        VIDEO = 'video', 'Video'
         LINK = 'link', 'Link'
         IMAGE = 'image', 'Image'
 

@@ -26,7 +26,6 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ['id', 'name']
 
-
 class ResourceSubmissionSerializer(serializers.ModelSerializer):
     category_name = serializers.StringRelatedField(
         source="category",
@@ -61,3 +60,32 @@ class ResourceSubmissionSerializer(serializers.ModelSerializer):
             "submitted_at",
             "approved_at",
         ]
+
+    def validate(self, attrs):
+        resource_type = attrs.get("resource_type")
+        file = attrs.get("file")
+        link = attrs.get("link")
+
+        if resource_type == "link":
+            if not link:
+                raise serializers.ValidationError({
+                    "link": "A link is required for link resources."
+                })
+
+            if file:
+                raise serializers.ValidationError({
+                    "file": "File is not allowed for link resources."
+                })
+
+        if resource_type in ["pdf", "image"]:
+            if not file:
+                raise serializers.ValidationError({
+                    "file": "A file is required for this resource type."
+                })
+
+            if link:
+                raise serializers.ValidationError({
+                    "link": "Link is not allowed for PDF or image resources."
+                })
+
+        return attrs
