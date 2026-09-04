@@ -1,4 +1,4 @@
-# Student Resource Hub API
+`# Student Resource Hub API
 
 A RESTful API backend for a platform where Nigerian university students and lecturers can upload, discover, and download study materials — past questions, lecture notes, textbooks, and summaries — organized by department, course, and level.
 
