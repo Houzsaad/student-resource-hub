@@ -27,8 +27,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=225)
-    role = models.CharField(max_length=20, choices=Role.choices, default=Role.STUDENT)
+    faculty = models.CharField(max_length=225, blank=True)
     department = models.CharField(max_length=225, blank=True)
+    role = models.CharField(max_length=20, choices=Role.choices, default=Role.STUDENT)
+<<<<<<< HEAD
+    department = models.CharField(max_length=225, blank=True)
+=======
+>>>>>>> 5b81de312c97f8c81c31149a7945452743572f2c
     level = models.CharField(max_length=12, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
