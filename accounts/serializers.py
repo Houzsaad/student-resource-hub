@@ -22,3 +22,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'full_name', 'role', 'department', 'level', 'date_joined']
         read_only_fields = ['id']
+
+class ProfileSerializer(serializers.ModelSerializer):
+    faculty = serializers.StringRelatedField()
+    department = serializers.StringRelatedField()
+
+    class Meta:
+        model = User
+        fields =['id', 'email', 'full_name', 'password', 'faculty', 'department', 'role', 'date_joined']
+        read_only_fields = ['id', 'date_joined', 'role']
