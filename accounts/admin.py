@@ -4,92 +4,93 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User
 
 
-# @admin.register(User)
-# class CustomUserAdmin(UserAdmin):
-#     model = User
+@admin.register(User)
+class CustomUserAdmin(UserAdmin):
+    model = User
 
-#     list_display = (
-#         "email",
-#         "full_name",
-#         "role",
-#         "is_staff",
-#         "is_active",
-#     )
+    list_display = (
+        "email",
+        "full_name",
+        "role",
+        "is_staff",
+        "is_active",
+    )
 
-#     list_filter = (
-#         "role",
-#         "is_staff",
-#         "is_active",
-#         "is_superuser",
-#     )
+    list_filter = (
+        "role",
+        "is_staff",
+        "is_active",
+        "is_superuser",
+    )
 
-#     ordering = ("email",)
+    ordering = ("email",)
 
-#     search_fields = (
-#         "email",
-#         "full_name",
-#     )
+    search_fields = (
+        "email",
+        "full_name",
+    )
 
-#     fieldsets = (
-#         (
-#             None,
-#             {
-#                 "fields": (
-#                     "email",
-#                     "password",
-#                 )
-#             },
-#         ),
-#         (
-#             "Personal information",
-#             {
-#                 "fields": (
-#                     "full_name",
-#                     "role",
-#                     "depertment",
-#                     "level",
-#                 )
-#             },
-#         ),
-#         (
-#             "Permissions",
-#             {
-#                 "fields": (
-#                     "is_active",
-#                     "is_staff",
-#                     "is_superuser",
-#                     "groups",
-#                     "user_permissions",
-#                 )
-#             },
-#         ),
-#         (
-#             "Important dates",
-#             {
-#                 "fields": (
-#                     "last_login",
-#                     #"date_joined",
-#                 )
-#             },
-#         ),
-#     )
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "email",
+                    "password",
+                )
+            },
+        ),
+        (
+            "Personal information",
+            {
+                "fields": (
+                    "full_name",
+                    "role",
+                    "department",
+                    "level",
+                )
+            },
+        ),
+        (
+            "Permissions",
+            {
+             "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                   )
+            },
+        ),
+        (
+            "Important dates",
+            {
+                "fields": (
+                    "last_login",
+                    # "date_joined",
+                )
+            },
+        ),
+    )
 
-#     add_fieldsets = (
-#         (
-#             None,
-#             {
-#                 "classes": ("wide",),
-#                 "fields": (
-#                     "email",
-#                     "full_name",
-#                     "role",
-#                     "depertment",
-#                     "level",
-#                     "password1",
-#                     "password2",
-#                     "is_staff",
-#                     "is_active",
-#                 ),
-#             },
-#         ),
-#     )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "email",
+                    "full_name",
+                    "role",
+                    "deparment",
+                    "faculty",
+                    "level",
+                    "password1",
+                    "password2",
+                    "is_staff",
+                    "is_active",
+                ),
+            },
+        ),
+    )
