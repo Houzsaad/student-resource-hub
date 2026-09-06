@@ -1,5 +1,4 @@
 import cloudinary
-print("Cloudinary config:", cloudinary.config().cloud_name)
 
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
