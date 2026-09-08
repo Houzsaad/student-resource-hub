@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
@@ -11,6 +12,31 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'email', 'full_name', 'password', 'faculty', 'department', 'role', 'date_joined']
         read_only_fields = ['id', 'date_joined', 'role']
+
+
+    def validate_full_name(self, value):
+        value = value.strip()
+
+        if len(value) < 3:
+            raise serializers.ValidationError(
+                "Full name must be at least 3 characters."
+            )
+
+        if not re.search(r"[A-Za-z]", value):
+            raise serializers.ValidationError(
+                "Full name must contain letters."
+            )
+
+        if re.search(r"\d", value):
+            raise serializers.ValidationError(
+                "Full name cannot contain numbers."
+            )
+        if re.search(r"[^\w\s'-]", value, re.UNICODE):
+            raise serializers.ValidationError(
+                "Full name contains invalid characters."
+            )
+
+        return value
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
