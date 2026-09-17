@@ -136,5 +136,7 @@ python manage.py runserver
 ## Author
 
 **Huzaifa Sa'ad** — Self-taught fullstack developer
+
 **GitHub**: [Houzsaad](https://github.com/Houzsaad)
+
 **Fiverr**: [fiverr.com/s/Q78QpXP](https://fiverr.com/s/Q78QpXP)
