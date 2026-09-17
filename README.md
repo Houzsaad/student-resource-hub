@@ -1,19 +1,20 @@
-`# Student Resource Hub API
+# Student Resource Hub API
 
-A RESTful API backend for a platform where Nigerian university students and lecturers can upload, discover, and download study materials — past questions, lecture notes, textbooks, and summaries — organized by department, course, and level.
+A RESTful API backend for a platform where Nigerian university students and lecturers can upload, discover, and download study materials — past questions, lecture notes, textbooks, and summaries — organized by faculty, department, level, and course.
 
 ## Problem
 
-Nigerian university students have no structured, searchable place to find course materials. Everything lives in scattered WhatsApp groups and Telegram channels. Materials get lost, repeated every year, never organized.
+Nigerian university students have no structured, searchable place to find course materials. Everything lives in scattered WhatsApp groups and Telegram channels. Materials get lost, repeated every year, never organized. A student can lose access to a course PDF just months after using it, with no reliable way to get it back.
 
 This app solves that.
 
 ## Features
 
 - **Authentication** — JWT-based register, login, and token refresh
-- **Role-based users** — Student, Lecturer, and Admin roles
-- **Resource upload** — Upload study materials with file, title, description, and category
-- **Categories** — Hierarchical organization by faculty, department, and level
+- **Role-based users** — Student and Admin roles, with Faculty/Department/level captured at registration
+- **Resource upload** — Upload study materials (PDF, image, or link) with title, description, and category
+- **Resource moderation** — New uploads enter a pending queue and require moderator approval (scoped to the moderator's department) before becoming publicly visible
+- **Categories** — Organization by faculty, department, and level
 - **Tagging** — Freeform tags on resources for flexible discovery
 - **Search** — Search resources by title, description, tag, or category
 - **Ratings** — 1–5 star ratings per resource, one per user
@@ -21,66 +22,58 @@ This app solves that.
 - **Notifications** — Auto-notify uploaders when their resource is rated or commented on
 - **Download tracking** — Track download count per resource
 - **Ownership permissions** — Only the uploader can edit or delete their resource
+- **Dark / light / system theme** — Full theme support across the frontend
+- **Persistent navigation** — Top bar for branding/session actions, bottom nav for Home/Search/Upload/Profile
+- **Profile** — It display your role, faculty, depertment, level, profile avatar and list of the resources you've ever upload
 
 ## Design Patterns Used
 
 | Pattern | Where |
 |---|---|
-| Observer | Signals auto-create notifications on rating/comment |
+| Observer | Signals auto-create notifications on rating/comment, and auto-create a pending `ResourceSubmission` on new upload |
 | Strategy | Pluggable search filter via DRF `filter_backends` |
 | Factory | `Resource.create_resource()` controls creation by type |
 | Repository | `ResourceDownloadView` isolates download logic |
-| Decorator | `IsOwnerOrReadOnly` wraps views with ownership check |
+| Decorator | `IsOwnerOrReadOnly` / `CanApproveResource` wrap views with permission checks |
 | Template Method | `get_object` override in `ProfileView` |
 
 ## Tech Stack
 
 - **Language** — Python
 - **Framework** — Django + Django REST Framework
-- **Database** — db.sqlite3(psql later)
+- **Frontend** — React (Vite)
+- **Database** — PostgreSQL
 - **Auth** — JWT via `djangorestframework-simplejwt`
-- **Deployment** — Render
-- **File Storage** — Local (Render disk / upgradeable to S3)
-
-- **live project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
+- **Deployment** — Render (backend + database), Vercel (frontend)
+- **File Storage** — Cloudinary
 
 ## Project Structure
 
-...text
+```bash
 student-resource-hub/
-├── core/            
-├── accounts/        
-├── resources/          
-├── interactions/       
+├── core/
+├── accounts/
+├── resources/
+├── interactions/
 ├── manage.py
 ├── requirements.txt
 ├── build.sh
 └── Procfile
-...
+```
 
 ## API Endpoints
 
 ### Accounts
+
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/api/accounts/register/` | Register a new user |
+| POST | `/api/accounts/register/` | Register a new user (includes faculty, department, level) |
 | POST | `/api/accounts/login/` | Login and get JWT tokens |
 | POST | `/api/accounts/token/refresh/` | Refresh access token |
 | GET/PATCH | `/api/accounts/profile/` | View or update your profile |
 
-## Register Page
-<p align="center">
-    <img src="https://github.com/Houzsaad/student-resource-hub/blob/1a8fc6f9a1183a8c8015397bc94706158ea03740/WhatsApp%20Image%202026-05-16%20at%2014.31.09.jpeg" width="250"/>
-</p>
-
-- **live accounts project url** -- https://student-resource-hub-qx57..onrender.com/api/accounts/register/
-
-- ## Logged_in Page
-<p align="center">
-    <img src="https://github.com/Houzsaad/student-resource-hub/blob/8f4751067c621ceed871b321768433e1032256ee/WhatsApp%20Image%202026-05-16%20at%2014.31.09%20(2).jpeg" width="250"/>
-</p>
-
 ### Resources
+
 | Method | Endpoint | Description |
 |---|---|---|
 | GET/POST | `/api/resources/categories/` | List or create categories |
@@ -89,10 +82,13 @@ student-resource-hub/
 | GET | `/api/resources/resources/<id>/download/` | Download a resource |
 | GET/POST | `/api/resources/tags/` | List or create tags |
 | GET | `/api/resources/search/?search=<query>` | Search resources |
-
-- **live  resources project url** -- https://student-resource-hub-qx57.onrender.com/api/resources/resources/pk/download/
+| GET/POST | `/api/resources/submissions/` | List your submissions, or submit a new resource for review |
+| GET | `/api/resources/submissions/pending/` | List pending submissions (moderator only) |
+| POST | `/api/resources/submissions/<id>/approve/` | Approve a pending submission (moderator only) |
+| POST | `/api/resources/submissions/<id>/reject/` | Reject a pending submission (moderator only) |
 
 ### Interactions
+
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/api/interactions/ratings/` | Rate a resource |
@@ -116,6 +112,7 @@ pip install -r requirements.txt
 SECRET_KEY=your-secret-key
 DEBUG=True
 DATABASE_URL=your-database-url
+CLOUDINARY_URL=your-cloudinary-url
 
 # Run migrations
 python manage.py migrate
@@ -133,10 +130,11 @@ python manage.py runserver
 |---|---|
 | `SECRET_KEY` | Django secret key |
 | `DEBUG` | `True` for development, `False` for production |
-| `DATABASE_URL` | PostgreSQL connection string |
+| `DATABASE_URL` | PostgreSQL connection string (use the External URL for local development) |
+| `CLOUDINARY_URL` | Cloudinary connection string for file storage |
 
 ## Author
 
-**Huzaifa** — Self-taught backend developer  
-**GitHub**: [Houzsaad](https://github.com/Houzsaad)  
+**Huzaifa Sa'ad** — Self-taught fullstack developer
+**GitHub**: [Houzsaad](https://github.com/Houzsaad)
 **Fiverr**: [fiverr.com/s/Q78QpXP](https://fiverr.com/s/Q78QpXP)
