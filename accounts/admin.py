@@ -30,6 +30,7 @@ class CustomUserAdmin(UserAdmin):
         "full_name",
     )
 
+<<<<<<< HEAD
     fieldsets = (
         (
             None,
@@ -94,3 +95,68 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
+=======
+#     fieldsets = (
+#         (
+#             None,
+#             {
+#                 "fields": (
+#                     "email",
+#                     "password",
+#                 )
+#             },
+#         ),
+#         (
+#             "Personal information",
+#             {
+#                 "fields": (
+#                     "full_name",
+#                     "role",
+#                     "department",
+#                     "level",
+#                 )
+#             },
+#         ),
+#         (
+#             "Permissions",
+#             {
+#                 "fields": (
+#                     "is_active",
+#                     "is_staff",
+#                     "is_superuser",
+#                     "groups",
+#                     "user_permissions",
+#                 )
+#             },
+#         ),
+#         (
+#             "Important dates",
+#             {
+#                 "fields": (
+#                     "last_login",
+#                     #"date_joined",
+#                 )
+#             },
+#         ),
+#     )
+
+#     add_fieldsets = (
+#         (
+#             None,
+#             {
+#                 "classes": ("wide",),
+#                 "fields": (
+#                     "email",
+#                     "full_name",
+#                     "role",
+#                     "department",
+#                     "level",
+#                     "password1",
+#                     "password2",
+#                     "is_staff",
+#                     "is_active",
+#                 ),
+#             },
+#         ),
+#     )
+>>>>>>> srh-backend-upgrade

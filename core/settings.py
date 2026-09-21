@@ -57,6 +57,25 @@ INSTALLED_APPS = [
     'academics'
 ]
 
+PASSWORD_RESET_TIMEOUT = 300  # 5 minutes, in seconds (Django's default is 259200 = 3 days)
+
+
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
+#FRONTEND_URL = "https://student-resource-hub-frontend.vercel.app"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# settings.py
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True") == "True"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
+
+
 if os.environ.get('USE_CLOUDINARY') == 'True':
     STORAGES = {
         "default": {
@@ -196,6 +215,7 @@ if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
+            # default='sqlite:///db.sqlite3',
             conn_max_age=600
         )  
     }
