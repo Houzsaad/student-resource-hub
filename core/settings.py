@@ -60,8 +60,8 @@ INSTALLED_APPS = [
 PASSWORD_RESET_TIMEOUT = 300  # 5 minutes, in seconds (Django's default is 259200 = 3 days)
 
 
-FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
-#FRONTEND_URL = "https://student-resource-hub-frontend.vercel.app"
+# FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
+FRONTEND_URL = os.environ.get("FRONTEND_URL")
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
