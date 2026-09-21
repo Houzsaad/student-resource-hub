@@ -46,7 +46,7 @@ from .models import User
 #                 "fields": (
 #                     "full_name",
 #                     "role",
-#                     "depertment",
+#                     "department",
 #                     "level",
 #                 )
 #             },
@@ -83,7 +83,7 @@ from .models import User
 #                     "email",
 #                     "full_name",
 #                     "role",
-#                     "depertment",
+#                     "department",
 #                     "level",
 #                     "password1",
 #                     "password2",
