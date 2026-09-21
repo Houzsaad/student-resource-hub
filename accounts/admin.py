@@ -30,7 +30,7 @@ class CustomUserAdmin(UserAdmin):
         "full_name",
     )
 
-<<<<<<< HEAD
+
     fieldsets = (
         (
             None,
@@ -95,7 +95,6 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-=======
 #     fieldsets = (
 #         (
 #             None,
@@ -159,4 +158,4 @@ class CustomUserAdmin(UserAdmin):
 #             },
 #         ),
 #     )
->>>>>>> srh-backend-upgrade
+
