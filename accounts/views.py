@@ -24,6 +24,9 @@ from rest_framework import status
 User = get_user_model()
 token_generator = PasswordResetTokenGenerator()
 
+import resend
+
+resend.api_key = settings.RESEND_API_KEY
 
 class RequestPasswordResetView(APIView):
     permission_classes = []
@@ -56,15 +59,14 @@ class RequestPasswordResetView(APIView):
         token = token_generator.make_token(user)
         reset_link = f"{settings.FRONTEND_URL}/reset-password/{uid}/{token}/"
 
-        send_mail(
-            subject="Reset your SRH password",
-            message=f"Click the link below to reset your password. This link expires in 5 minutes.\n\n{reset_link}\n\nIf you didn't request this, you can safely ignore this email.",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[email],
-        )
+        resend.Emails.send({
+            "from": settings.DEFAULT_FROM_EMAIL,
+            "to": [email],
+            "subject": "Reset your SRH password",
+            "text": f"Click the link below to reset your password. This link expires in 5 minutes.\n\n{reset_link}\n\nIf you didn't request this, you can safely ignore this email.",
+        })
 
         return Response({"message": "If that email exists, a reset link has been sent."})
-
 
 
 class ConfirmPasswordResetView(APIView):
